@@ -303,17 +303,6 @@ while True:
         slow_print("Boty: 😡 I won't talk to you until you apologize.")
         continue
 
-    if is_botus_offended(user_input):
-        boty_offended = True
-        try:
-            turret = serial.Serial('COM4', 9600)
-            turret.write(b'FIREALL\n')
-            time.sleep(1)
-            turret.close()
-        except Exception as e:
-            print(f"Boty: Can't connect to the turret: {e}")
-        continue
-
     if user_input.lower().startswith("/code ") or "write me" in user_input.lower():
         slow_print("Boty: Open your Python editor now (e.g. IDLE, PyCharm, Pydroid3)...")
         slow_print("Boty: You have 10 seconds. The code will write itself. 😎")
