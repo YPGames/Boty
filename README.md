@@ -30,14 +30,13 @@ Here you’ll find **Boty** – a mood-driven, topic-aware chatbot with math, co
 
 ## 🚀 How to Run
 
-1. **Clone the repo:**
+1. **Install requirements:**
     ```
-    git clone https://github.com/youruser/boty-scp.git
-    cd boty-scp
+    pip install pyserial
     ```
-2. **Install requirements:**
+    and
     ```
-    pip install pyautogui pyserial
+    pip install pyautogui
     ```
     (Optional, only needed for some features like code auto-typing or hardware integration)
 
