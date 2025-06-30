@@ -7,6 +7,7 @@ from brightpredictor import bright_actions
 from collections import Counter
 import pyautogui
 import serial
+import subprocess
 
 # -------------------- CONFIGURATION --------------------
 MOODS = ["normal", "joker", "philosophical", "sarcastic", "nice", "sus", "slime", "bright", "dark"]
@@ -303,6 +304,17 @@ while True:
         slow_print("Boty: 😡 I won't talk to you until you apologize.")
         continue
 
+    if is_botus_offended(user_input):
+        boty_offended = True
+        try:
+            turret = serial.Serial('COM4', 9600)
+            turret.write(b'FIREALL\n')
+            time.sleep(1)
+            turret.close()
+        except Exception as e:
+            print(f"Boty: Can't connect to the turret: {e}")
+        continue
+
     if user_input.lower().startswith("/code ") or "write me" in user_input.lower():
         slow_print("Boty: Open your Python editor now (e.g. IDLE, PyCharm, Pydroid3)...")
         slow_print("Boty: You have 10 seconds. The code will write itself. 😎")
@@ -341,6 +353,34 @@ while True:
 
     if "give me area" in user_input.lower():
         fields_of_figures()
+
+    if user_input.lower() == "/ragequit":
+        pyautogui.hotkey("alt", "f4")
+
+    if user_input.lower().startswith("/open "):
+        APP_PATHS = {
+           // apps and paths
+        }
+        app_name = user_input[6:].strip().lower()  
+        path = APP_PATHS.get(app_name, app_name)   
+        slow_print(f"Boty: I'm opening {app_name}...")
+
+        try:
+            subprocess.Popen(path)
+        except Exception as e:
+            slow_print(f"Boty: I can't open this app! ({e})")
+        continue
+
+    if user_input.lower() == "/tabdance":
+        slow_print("Boty: let's play alt+tab game!")
+        for i in range(10):
+            for _ in range(random.randint(2, 5)):
+                pyautogui.keyDown('alt')
+                pyautogui.press('tab')
+            time.sleep(0.2)
+            pyautogui.keyUp('alt')
+            time.sleep(0.8)
+        continue
 
     math_result = evaluate_math_expression(user_input)
     if math_result:
